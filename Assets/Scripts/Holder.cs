@@ -14,10 +14,10 @@ public class Holder : MonoBehaviour
     private Vector3 normalScale;
 
     private Tween positionTween, scaleTween;
-
+     
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // Сохраняем объект класс Item
+        // РЎРѕС…СЂР°РЅСЏРµРј РѕР±СЉРµРєС‚ РєР»Р°СЃСЃ Item
         itemTransform = collision.GetComponent<Item>() ? collision.GetComponent<Item>().transform : null;
     }
 
@@ -26,31 +26,31 @@ public class Holder : MonoBehaviour
 
         if (itemTransform & normalScale != Vector3.zero)
         {
-            // Отписываемся от анимации
+            // РћС‚РїРёСЃС‹РІР°РµРјСЃСЏ РѕС‚ Р°РЅРёРјР°С†РёРё
             positionTween.Kill();
             scaleTween.Kill();
             
-            itemTransform.localScale = normalScale; // Возвращаем объекту прежний размер
-            itemTransform.GetComponent<Item>().isScaled = false; // Обозначаем отстутвие изменений размера
+            itemTransform.localScale = normalScale; // Р’РѕР·РІСЂР°С‰Р°РµРј РѕР±СЉРµРєС‚Сѓ РїСЂРµР¶РЅРёР№ СЂР°Р·РјРµСЂ
+            itemTransform.GetComponent<Item>().isScaled = false; // РћР±РѕР·РЅР°С‡Р°РµРј РѕС‚СЃС‚СѓС‚РІРёРµ РёР·РјРµРЅРµРЅРёР№ СЂР°Р·РјРµСЂР°
             itemTransform = null;
         }
     }
 
-    // Метод перемещающий объект в указанную точку
-    // Анимация выполнена при помощи DoTween
+    // РњРµС‚РѕРґ РїРµСЂРµРјРµС‰Р°СЋС‰РёР№ РѕР±СЉРµРєС‚ РІ СѓРєР°Р·Р°РЅРЅСѓСЋ С‚РѕС‡РєСѓ
+    // РђРЅРёРјР°С†РёСЏ РІС‹РїРѕР»РЅРµРЅР° РїСЂРё РїРѕРјРѕС‰Рё DoTween
     public void MoveToPoint()
     {
         if (itemTransform != null)
         {
-            if (!itemTransform.GetComponent<Item>().isScaled) // Проверка на отстутвие изменений 
+            if (!itemTransform.GetComponent<Item>().isScaled) // РџСЂРѕРІРµСЂРєР° РЅР° РѕС‚СЃС‚СѓС‚РІРёРµ РёР·РјРµРЅРµРЅРёР№ 
             {
                 itemTransform.GetComponent<Item>().isScaled = true; 
 
-                normalScale = itemTransform.transform.localScale; // Сохраняем изначальный размер объекта
+                normalScale = itemTransform.transform.localScale; // РЎРѕС…СЂР°РЅСЏРµРј РёР·РЅР°С‡Р°Р»СЊРЅС‹Р№ СЂР°Р·РјРµСЂ РѕР±СЉРµРєС‚Р°
 
-                // Анимация перемещения объекта
+                // РђРЅРёРјР°С†РёСЏ РїРµСЂРµРјРµС‰РµРЅРёСЏ РѕР±СЉРµРєС‚Р°
                 positionTween = itemTransform.DOMove(transform.localPosition + position, 1f);
-                // Анимация изменения размера объекта
+                // РђРЅРёРјР°С†РёСЏ РёР·РјРµРЅРµРЅРёСЏ СЂР°Р·РјРµСЂР° РѕР±СЉРµРєС‚Р°
                 scaleTween = itemTransform.DOScale(itemTransform.localScale * scaleMultiply, 1f);
             }
         }

@@ -10,41 +10,41 @@ public class ScreenScroll : MonoBehaviour
     private MobileAction mobileAction;
 
     private InputAction pressAction, positionAction;
-
+     
     private Vector3 lastPosition, currentPosition, screenSize, offset, position;
 
     private CompositeDisposable disposable = new CompositeDisposable();
 
     private void Awake()
     {
-        // Объявляем поле input action для считывания касаний и позиции касаний
+        // РћР±СЉСЏРІР»СЏРµРј РїРѕР»Рµ input action РґР»СЏ СЃС‡РёС‚С‹РІР°РЅРёСЏ РєР°СЃР°РЅРёР№ Рё РїРѕР·РёС†РёРё РєР°СЃР°РЅРёР№
         mobileAction = new MobileAction();
         mobileAction.Enable();
 
         pressAction = mobileAction.Touch.Press;
         positionAction = mobileAction.Touch.Position;
 
-        // Производим отписку 
+        // РџСЂРѕРёР·РІРѕРґРёРј РѕС‚РїРёСЃРєСѓ 
         pressAction.canceled += (InputAction.CallbackContext context) => disposable.Clear();
-        // Вычисляем размер экрана пользователя
+        // Р’С‹С‡РёСЃР»СЏРµРј СЂР°Р·РјРµСЂ СЌРєСЂР°РЅР° РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
         screenSize = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0f));
     }
 
-    // Метод отвечающий за перемещения камеры относительно касаний
+    // РњРµС‚РѕРґ РѕС‚РІРµС‡Р°СЋС‰РёР№ Р·Р° РїРµСЂРµРјРµС‰РµРЅРёСЏ РєР°РјРµСЂС‹ РѕС‚РЅРѕСЃРёС‚РµР»СЊРЅРѕ РєР°СЃР°РЅРёР№
     public void Scroll(InputAction.CallbackContext context)
     {
-        // Сохраняем позицию первого касания
+        // РЎРѕС…СЂР°РЅСЏРµРј РїРѕР·РёС†РёСЋ РїРµСЂРІРѕРіРѕ РєР°СЃР°РЅРёСЏ
         lastPosition = Camera.main.ScreenToWorldPoint(positionAction.ReadValue<Vector2>());
 
-        // Подписка на Update
+        // РџРѕРґРїРёСЃРєР° РЅР° Update
         Observable.EveryUpdate().Subscribe(_ =>
         {
-            // Перемещаем камеру отностельно касаний
+            // РџРµСЂРµРјРµС‰Р°РµРј РєР°РјРµСЂСѓ РѕС‚РЅРѕСЃС‚РµР»СЊРЅРѕ РєР°СЃР°РЅРёР№
             currentPosition = Camera.main.ScreenToWorldPoint(positionAction.ReadValue<Vector2>());
             offset = new Vector3(currentPosition.x - lastPosition.x, 0f, 0f);
             Camera.main.transform.position -= Time.deltaTime * force * offset;
 
-            // Ограничиваем положение камеры точками на оси X
+            // РћРіСЂР°РЅРёС‡РёРІР°РµРј РїРѕР»РѕР¶РµРЅРёРµ РєР°РјРµСЂС‹ С‚РѕС‡РєР°РјРё РЅР° РѕСЃРё X
             position = Camera.main.transform.position;
             position.x = Mathf.Clamp(position.x, xMin + screenSize.x, xMax - screenSize.x);
             Camera.main.transform.position = position;

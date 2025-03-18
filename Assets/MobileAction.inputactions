@@ -1,0 +1,54 @@
+{
+    "name": "MobileAction",
+    "maps": [
+        {
+            "name": "Touch",
+            "id": "521cd867-258c-46c6-b457-8b0f301dde51",
+            "actions": [
+                {
+                    "name": "Position",
+                    "type": "Value",
+                    "id": "9935b434-cf0a-4807-a985-3f431d63f6d1",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Press",
+                    "type": "Button",
+                    "id": "97762d52-6b95-444f-9064-e03efa5a1764",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "9ad22ee5-ccc7-4af6-8149-0a096b8a8938",
+                    "path": "<Touchscreen>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Position",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "aa4ac46e-fe71-40b1-ad25-bb1ef4317766",
+                    "path": "<Touchscreen>/Press",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Press",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

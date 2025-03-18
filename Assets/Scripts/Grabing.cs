@@ -20,7 +20,7 @@ public class Grabing : MonoBehaviour
 
     private void Awake()
     {
-        // Объявляем поле input action для считывания касаний и позиции касаний
+        // РћР±СЉСЏРІР»СЏРµРј РїРѕР»Рµ input action РґР»СЏ СЃС‡РёС‚С‹РІР°РЅРёСЏ РєР°СЃР°РЅРёР№ Рё РїРѕР·РёС†РёРё РєР°СЃР°РЅРёР№
         mobileAction = new MobileAction(); 
         mobileAction.Enable(); 
 
@@ -33,39 +33,39 @@ public class Grabing : MonoBehaviour
 
     private void Press(InputAction.CallbackContext context)
     {
-        // При помощи raycast пытаемся найти объект класса Item 
+        // пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ raycast пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ Item 
         Collider2D[] coll = Physics2D.OverlapPointAll(GetWorldPosition());
         item = Array.Find(coll, x => x.CompareTag("Item"));
 
         if (item)
         {
-            item.GetComponent<Item>().isHeld = true; // Обозначаем взаимодейтсвие с объектом
-            offset = item.transform.position - GetWorldPosition(); // Вычисляем разницу между центром объекта и позицией клика
-            // При помощи UniRx создаем подписываемся на Update и каждый кадр перемещаем объект в зависимости от положения курсора (Drag and Drop)
+            item.GetComponent<Item>().isHeld = true; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+            offset = item.transform.position - GetWorldPosition(); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+            // пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ UniRx пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ Update пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ (Drag and Drop)
             Observable.EveryUpdate().Subscribe(_ => item.transform.position = GetWorldPosition() + offset).AddTo(disposable); 
         }
         else
-            screenScroll.Scroll(context); // Если на пути не были обнаружены объекты, то активируем Screen Scroll
+            screenScroll.Scroll(context); // пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ Screen Scroll
     }
 
     private void Release(InputAction.CallbackContext context)
     {
-        // Отписываемся от событий
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         disposable.Clear();
 
         if (item != null)
         {
-            item.GetComponent<Item>().isHeld = false; // Обозначаем прекращение взаимодействия с объектом
+            item.GetComponent<Item>().isHeld = false; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             item = null;
         }
 
-        // При помощи raycast пытаемся найти объект класса Holder 
+        // пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ raycast пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ Holder 
         Collider2D[] coll = Physics2D.OverlapPointAll(GetWorldPosition());
         Collider2D holder = Array.Find(coll, x => x.GetComponent<Holder>());
         holder?.GetComponent<Holder>()?.MoveToPoint(); 
     }
 
-    // Метод возвращающий положение курсора относительно камеры
+    // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
     private Vector3 GetWorldPosition()
     {
         return Camera.main.ScreenToWorldPoint(positionAction.ReadValue<Vector2>());

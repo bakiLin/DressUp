@@ -11,5 +11,5 @@ https://github.com/user-attachments/assets/fff99bcb-46b9-4c6c-bf0b-c0006e048223
 ## Технические моменты
 - Для реализации анимаций был использован плагин [DoTween](https://dotween.demigiant.com/).
 - Для подписок на события был использован плагин [UniRx](https://github.com/neuecc/UniRx).
-## Ссылка
-https://disk.yandex.ru/d/NI4x34kOo10P9g
+## Ссылки 
+[APK](https://disk.yandex.ru/d/NI4x34kOo10P9g)
